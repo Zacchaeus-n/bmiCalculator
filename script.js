@@ -36,6 +36,7 @@ const bmiDisplayMessage = (e) => {
   } else {
     //removing error
     weight.classList.remove("error");
+    height.classList.remove("error");
 
     //converting input strings into floating point numbers
     const bmi = bmiCalculator(
