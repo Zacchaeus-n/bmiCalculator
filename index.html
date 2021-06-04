@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JavaScripts</title>
+    <link rel="shortcut icon" href="images/favicon.png" type="image/x-icon" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="wrap">
+      <!-- header section -->
+      <header>
+        <img src="images/bmilo.PNG" alt="BMI Logo" />
+      </header>
+      <!-- form -->
+      <form action="#">
+        <h1>Calculate Your BMI</h1>
+        <p>
+          The Body Mass Index (BMI) is a way of estimating the amount of body
+          fat. It's used in medicine to calculate risk of heart disease.
+        </p>
+        <div class="input_group">
+          <label for="wieght"
+            >Weight (kg)
+            <input
+              class="input"
+              type="text"
+              name="weight"
+              id="weight"
+              placeholder="Weight (kg)"
+            />
+          </label>
+          <label for="hieght"
+            >Height (m)
+            <input
+              class="input"
+              type="text"
+              name="height"
+              id="height"
+              placeholder="Height (m)"
+            />
+          </label>
+        </div>
+        <button id="submit">Check</button>
+        <!-- display message -->
+        <span class="message"></span>
+      </form>
+      <img src="images/bmi.PNG" alt="BMI Values" />
+      <img src="images/bmivis.PNG" alt="BMI images" />
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>
