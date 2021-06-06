@@ -3,7 +3,7 @@
  * BMI < 18.5, the output should be: "Your BMI is , so you are underweight."
    BMI 18.5 - 24.9, the output should be: "Your BMI is , so you have a normal weight."
    BMI > 24.9, the output should be: "Your BMI is , so you are overweight."
-   2.72 m
+   
  */
 
 //Selecting DOM elements
@@ -12,6 +12,11 @@ const height = document.querySelector("#height");
 const message = document.querySelector(".message");
 const btn = document.querySelector("#submit");
 
+//output variable
+let output;
+
+// FUNCTIONS****************************************
+
 //function returns boolean for invalid inputs
 const isNotValidInput = (value) => (value <= 0 || isNaN(value) ? true : false);
 
@@ -19,50 +24,66 @@ const isNotValidInput = (value) => (value <= 0 || isNaN(value) ? true : false);
 const bmiCalculator = (weight, height) =>
   Math.round(weight / Math.pow(height, 2));
 
+// Checking BMI
+const checkBMI = (bmiValue) => {
+  //BMI Message to display
+  if (bmiValue < 18.5) {
+    output = `Your BMI is ${bmiValue}kg/m<sup>2</sup> , so you are underweight.`;
+    message.classList.add("danger"); //change text color to red
+    message.classList.remove("normal"); //remove normal class
+  } else if (bmiValue >= 18.5 && bmiValue <= 24.9) {
+    output = `Your BMI is ${bmiValue}kg/m<sup>2</sup> , so you have a normal weight.`;
+    message.classList.add("normal"); //add normal class
+    message.classList.remove("danger"); //remove danger class
+  } else {
+    output = `Your BMI is ${bmiValue}kg/m<sup>2</sup> , so you are overweight.`;
+    message.classList.remove("normal"); //remove normal class
+    message.classList.add("danger"); //change text color to red
+  }
+};
+
 //BMI Display Message function
 const bmiDisplayMessage = (e) => {
   e.preventDefault(); //prevents form default action
 
-  //output variable
-  let output;
+  //call to bmiCalculator function
+  const bmi = bmiCalculator(parseFloat(weight.value), parseFloat(height.value));
 
-  //Checking for the correct weight and height values
-  if (isNotValidInput(weight.value)) {
-    output = `Please enter weight in kilograms (kg).`;
-    weight.classList.add("error"); //add red border to the input field
-  } else if (isNotValidInput(height.value)) {
-    output = `Please enter height in meters (m).`;
-    height.classList.add("error"); //add red border to the input field
-  } else {
-    //removing error
-    weight.classList.remove("error");
-    height.classList.remove("error");
-
-    //converting input strings into floating point numbers
-    const bmi = bmiCalculator(
-      parseFloat(weight.value),
-      parseFloat(height.value)
-    );
-
-    //BMI Message to display
-    if (bmi < 18.5) {
-      output = `Your BMI is ${bmi}kg/m2 , so you are underweight.`;
-      message.classList.add("danger"); //change text color to red
-      message.classList.remove("normal"); //remove normal class
-    } else if (bmi >= 18.5 && bmi <= 24.9) {
-      output = `Your BMI is ${bmi}kg/m2 , so you have a normal weight.`;
-      message.classList.add("normal"); //add normal class
-      message.classList.remove("danger"); //remove danger class
-    } else {
-      output = `Your BMI is ${bmi}kg/m2 , so you are overweight.`;
-      message.classList.remove("normal"); //remove normal class
-      message.classList.add("danger"); //change text color to red
-    }
-  }
+  // check BMI and display the correct message
+  checkBMI(bmi);
 
   // function return
   return (message.innerHTML = output);
 };
+
+//LISTENERS*******************************************
+
+//Checking for the correct weight values
+weight.addEventListener(`keyup`, () => {
+  if (isNotValidInput(weight.value)) {
+    weight.classList.add("error"); //add red border to the input field
+    message.classList.add("danger"); //change text color to red
+    message.innerHTML = `Please enter weight in kilograms (kg).`;
+  } else {
+    weight.classList.remove("error");
+    message.classList.remove("danger");
+    message.innerHTML = ``;
+  }
+});
+
+//Checking for the correct height values
+height.addEventListener(`keyup`, () => {
+  if (isNotValidInput(height.value)) {
+    height.classList.add("error"); //add red border to the input field
+    message.classList.add("danger"); //change text color to red
+    message.innerHTML = `Please enter height in meters (m).`;
+  } else {
+    height.classList.remove("error");
+    message.classList.remove("danger");
+    message.innerHTML = ``;
+    btn.disabled = false;
+  }
+});
 
 // button eventListener
 btn.addEventListener(`click`, bmiDisplayMessage);

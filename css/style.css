@@ -9,10 +9,15 @@ body {
   overflow-x: hidden;
 }
 
+h1 {
+  letter-spacing: 0.3rem;
+}
+
 p {
   color: #555;
   font-size: 12px;
   margin-top: 0.5rem;
+  width: 50%;
 }
 
 img {
@@ -95,6 +100,12 @@ img {
   color: green;
 }
 
+/* disabled button */
+button[disabled] {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
 /* display message */
 .message {
   width: 50%;
@@ -106,7 +117,7 @@ img {
 
 /* showing error, danger or success */
 .danger {
-  color: red;
+  color: red !important;
 }
 
 .normal {
